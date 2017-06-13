@@ -1,0 +1,14 @@
+#PBS -lwalltime=3:00:00  
+#PBS -lnodes=1:ppn=16     
+                         # 1 node for this job
+#PBS -S /bin/bash
+#PBS -e /home/gholland/projects/post_mortem/logs/
+#PBS -o /home/gholland/projects/post_mortem/logs/
+n=`wc -l < $PBS_NODEFILE`
+echo start of job in directory $PBS_O_WORKDIR
+echo number of nodes is $n
+echo the allocated nodes are:
+cat $PBS_NODEFILE
+echo starting working on problem $PBS_ARRAYID1
+
+python /home/gholland/projects/post_mortem/fit_ml_cv_all.py
