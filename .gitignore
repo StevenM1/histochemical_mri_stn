@@ -75,3 +75,6 @@ target/
 
 # Exclude nipype workflow folders
 /workflow_folders/
+
+# exclude fitted glm models
+notebooks/glm_models/
