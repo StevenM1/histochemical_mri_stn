@@ -162,9 +162,9 @@ for i in idx:
     for subject in subjects:
         df_to_run = df.loc[(df.subject_id==subject) & (df.stain==stain),:]
 
-        # remove outliers, defined as 4*IQR above median in log-space
+        # remove outliers, defined as 5*IQR above median in log-space
         iqr = np.subtract(*np.percentile(np.log(df_to_run['rate']).values, [75, 25]))
-        thresh = np.median(np.log(df_to_run['rate']))+4*iqr
+        thresh = np.median(np.log(df_to_run['rate']))+5*iqr
         outlier_idx = np.log(df_to_run['rate']) > thresh
         print('{} outlying data points found...'.format(np.sum(outlier_idx)))
         df_to_run = df_to_run.loc[~outlier_idx]
