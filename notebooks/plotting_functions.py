@@ -194,7 +194,7 @@ def plot_per_slice(df, slices=[0,1,2,3,4,5,6,7,8,9]):
     plt.gcf().set_size_inches(20, 20)
     
 
-def plot_stns(df, y_type='rate', vmin=-1.5, vmax=1.5, vminmax=None, n_slices=5, n_sectors_per_axis=10):
+def plot_stns(df, y_type='rate', vmin=-1.5, vmax=1.5, vminmax=None, n_slices=5, n_sectors_per_axis=10, suptitle=None):
     if len(df['stain'].unique()) == 1:
         fig, axes = plt.subplots(nrows=1, ncols=1*n_slices)
         axes = axes[np.newaxis,:]
@@ -251,14 +251,21 @@ def plot_stns(df, y_type='rate', vmin=-1.5, vmax=1.5, vminmax=None, n_slices=5, 
     #             print stain
     #             print p.values
     fig.set_size_inches(10.*2, 4.*2)
-    fig.subplots_adjust(hspace=.275, wspace=0.00, bottom=0.01, left=0.0, top=.95, right=1)
+    
+    if suptitle is not None:
+        htop = .9
+        fig.suptitle(suptitle)
+    else:
+        htop = 1
+        
+    fig.subplots_adjust(hspace=.275, wspace=0.00, bottom=0.01, left=0.0, top=htop, right=1)
 
     # outer boxes
-    plt.plot([0, 0], [0, 1], color='black', lw=1, transform=plt.gcf().transFigure, clip_on=False)
-    plt.plot([0, 1], [1, 1], color='black', lw=1, transform=plt.gcf().transFigure, clip_on=False)
-    plt.plot([1, 1], [0, 1], color='black', lw=1, transform=plt.gcf().transFigure, clip_on=False)
+    plt.plot([0, 0], [0, htop], color='black', lw=1, transform=plt.gcf().transFigure, clip_on=False)
+    plt.plot([0, 1], [htop, htop], color='black', lw=1, transform=plt.gcf().transFigure, clip_on=False)
+    plt.plot([1, 1], [0, htop], color='black', lw=1, transform=plt.gcf().transFigure, clip_on=False)
     plt.plot([0, 1], [0, 0], color='black', lw=1, transform=plt.gcf().transFigure, clip_on=False)
 
     # lines at 1/3rd, 2/3rd
-    plt.plot([1/3., 1/3.], [0, 1], color='black', lw=1, transform=plt.gcf().transFigure, clip_on=False)
-    plt.plot([2/3., 2/3.], [0, 1], color='black', lw=1, transform=plt.gcf().transFigure, clip_on=False)
+    plt.plot([1/3., 1/3.], [0, htop], color='black', lw=1, transform=plt.gcf().transFigure, clip_on=False)
+    plt.plot([2/3., 2/3.], [0, htop], color='black', lw=1, transform=plt.gcf().transFigure, clip_on=False)
